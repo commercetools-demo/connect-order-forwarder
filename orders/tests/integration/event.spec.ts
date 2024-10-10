@@ -9,7 +9,7 @@ import { post } from '../../src/controllers/event.controller';
 
 describe('Testing Event Controller', () => {
   it('Product Created', () => {
-    const orderId = 'fc75c80a-35bb-4414-92b1-d7899534b6f2';
+    const orderId = 'be5f7282-4725-44a8-9aeb-e674727bd704';
 
     const lineItem1: LineItem = {
       discountedPricePerQuantity: [],
