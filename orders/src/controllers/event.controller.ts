@@ -98,7 +98,6 @@ export const post = async (request: Request, response: Response) => {
             },
           }
         );
-        logger.info(result);
         response.status(result.status).send();
         return;
       }
