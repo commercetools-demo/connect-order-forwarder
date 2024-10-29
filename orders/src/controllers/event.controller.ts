@@ -3,7 +3,10 @@ import CustomError from '../errors/custom.error';
 import { logger } from '../utils/logger.utils';
 import { Message, OrderCreatedMessage } from '@commercetools/platform-sdk';
 import axios from 'axios';
-import { readEndpointConfiguration } from '../utils/config.utils';
+import {
+  readEndpointConfiguration,
+  readOrderConfiguration,
+} from '../utils/config.utils';
 import { createApiRoot } from '../client/create.client';
 
 const EXPANDS = [
@@ -32,6 +35,7 @@ export const post = async (request: Request, response: Response) => {
   }
   try {
     const endpointConfig = readEndpointConfiguration();
+    const orderConfiguration = readOrderConfiguration();
     // Receive the Pub/Sub message
     const pubSubMessage = request.body.message;
 
@@ -58,7 +62,7 @@ export const post = async (request: Request, response: Response) => {
             })
             .execute()
             .then(({ body }) => {
-              if (!body.orderNumber) {
+              if (!body.orderNumber && orderConfiguration.orderPrefix) {
                 return createApiRoot()
                   .orders()
                   .withId({ ID: orderCreateMessage.order.id })
@@ -71,7 +75,8 @@ export const post = async (request: Request, response: Response) => {
                       actions: [
                         {
                           action: 'setOrderNumber',
-                          orderNumber: 'vnde' + Date.now(),
+                          orderNumber:
+                            orderConfiguration.orderPrefix + Date.now(),
                         },
                       ],
                     },
@@ -92,10 +97,13 @@ export const post = async (request: Request, response: Response) => {
           `${endpointConfig.endpoint}`,
           { ...message, order: order },
           {
-            auth: {
-              username: endpointConfig.endpointUsername,
-              password: endpointConfig.endpointPassword,
-            },
+            auth:
+              endpointConfig.endpointUsername && endpointConfig.endpointPassword
+                ? {
+                    username: endpointConfig.endpointUsername,
+                    password: endpointConfig.endpointPassword,
+                  }
+                : undefined,
           }
         );
         response.status(result.status).send();

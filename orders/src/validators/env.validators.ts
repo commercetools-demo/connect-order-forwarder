@@ -62,7 +62,7 @@ export const envEndpointConfigValidators = [
     },
     { min: 2, max: undefined }
   ),
-  standardString(
+  optional(standardString)(
     ['endpointUsername'],
     {
       code: 'InvalidEndpointUsername',
@@ -71,7 +71,7 @@ export const envEndpointConfigValidators = [
     },
     { min: 2, max: undefined }
   ),
-  standardString(
+  optional(standardString)(
     ['endpointPassword'],
     {
       code: 'InvalidEndpointPassword',

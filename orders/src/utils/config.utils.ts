@@ -35,8 +35,8 @@ export const readConfiguration = () => {
 export const readEndpointConfiguration = () => {
   const envVars = {
     endpoint: process.env.ENDPOINT as string,
-    endpointUsername: process.env.ENDPOINT_USERNAME as string,
-    endpointPassword: process.env.ENDPOINT_PASSWORD as string,
+    endpointUsername: process.env.ENDPOINT_USERNAME as string | undefined,
+    endpointPassword: process.env.ENDPOINT_PASSWORD as string | undefined,
   };
 
   const validationErrors = getValidateMessages(
@@ -53,4 +53,10 @@ export const readEndpointConfiguration = () => {
   }
 
   return envVars;
+};
+
+export const readOrderConfiguration = () => {
+  return {
+    orderPrefix: (process.env.ORDER_PREFIX as string) || undefined,
+  };
 };

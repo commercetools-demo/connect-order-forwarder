@@ -16,7 +16,8 @@ deployAs:
           required: true
         - key: ENDPOINT_USERNAME
           description: basic auth username
-          required: true
+        - key: ORDER_PREFIX
+          description: order prefix to be set on order create
       securedConfiguration:
         - key: CTP_PROJECT_KEY
           description: commercetools Composable Commerce project key
@@ -32,4 +33,3 @@ deployAs:
           required: true
         - key: ENDPOINT_PASSWORD
           description: basic auth password
-          required: true
