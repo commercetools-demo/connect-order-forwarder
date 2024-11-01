@@ -12,6 +12,7 @@ import { createApiRoot } from '../client/create.client';
 const EXPANDS = [
   'lineItems[*].productType',
   'lineItems[*].price.discounted.discount',
+  'shippingInfo.shippingMethod',
 ];
 /**
  * Exposed event POST endpoint.
