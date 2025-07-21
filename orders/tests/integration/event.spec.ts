@@ -4,7 +4,7 @@ import { OrderCreatedMessage, Order } from '@commercetools/platform-sdk';
 import { post } from '../../src/controllers/event.controller';
 
 describe('Testing Event Controller', () => {
-  it('Product Created', () => {
+  it('Order Created', () => {
     const orderId = '62e10dcc-1c76-4e26-823a-5b3829b8f9f8';
 
     const order: Order = {
